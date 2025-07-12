@@ -1,0 +1,21 @@
+### Crear alerta
+POST http://localhost:8000/alertas
+Content-Type: application/json
+
+{
+  "titulo": "Incendio forestal en zona norte",
+  "descripcion": "Fuego detectado por satélite",
+  "latitud": -25.2637,
+  "longitud": -57.5759,
+  "categoria": "incendio",
+  "nivel_alerta": 4
+}
+
+### Obtener todas
+GET http://localhost:8000/alertas
+
+### Filtrar por categoría
+GET http://localhost:8000/alertas?categoria=incendio
+
+### Eliminar
+DELETE http://localhost:8000/alertas/1
