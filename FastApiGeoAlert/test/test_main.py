@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from FastApiGeoAlert.main import app
+from FastApiGeoAlert.app.main import app
 
 client = TestClient(app)
 

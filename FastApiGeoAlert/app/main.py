@@ -1,12 +1,22 @@
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 import FastApiGeoAlert.app.models as models, FastApiGeoAlert.app.schemas as schemas, FastApiGeoAlert.app.crud as crud
 from FastApiGeoAlert.app.database import SessionLocal, engine
 from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import httpx
 
 app = FastAPI(title="GeoAlert API", description="API para gestionar alertas georreferenciadas")
+
+# Serve static files (frontend)
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
+# Serve index.html on root
+@app.get("/")
+def read_root():
+    return FileResponse("app/static/index.html")
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,11 +25,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# Crear las tablas en la base de datos
 
-models.Base.metadata.create_all(bind=engine)
-
-app = FastAPI(title="GeoAlert API", description="API para gestionar alertas georreferenciadas")
+# Conexión a la base de datos
+from fastapi import Depends
+from sqlalchemy.orm import Session
 
 def get_db():
     db = SessionLocal()

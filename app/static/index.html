@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Geo Alert</title>
+    <link rel="icon" type="image/x-icon" href="static/favicon.ico">
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>FastAPI Geo Alert</h1>
+    </header>
+    <main>
+        <section id="location">
+            <h2>Location</h2>
+            <form id="location-form">
+                <label for="latitude">Latitude:</label>
+                <input type="text" id="latitude" name="latitude" required>
+                <label for="longitude">Longitude:</label>
+                <input type="text" id="longitude" name="longitude" required>
+                <button type="submit">Set Location</button>
+            </form>
+        </section>
+        <section id="alert">
+            <h2>Alert</h2>
+            <form id="alert-form">
+                <label for="alert-message">Message:</label>
+                <input type="text" id="alert-message" name="alert-message" required>
+                <button type="submit">Send Alert</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 FastAPI Geo Alert</p>
+    </footer>
+    <script src="static/scripts.js"></script>
+    <script>
+  fetch('/api/data')
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(response.statusText);
+      }
+    })
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
+</script>
+
+</body>
+</html>
